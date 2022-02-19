@@ -11,7 +11,7 @@ jobs:
     steps:
       - run: git clone https://github.com/elimowa/3w5-h22-tp2-frontend.git; git clone https://github.com/elimowa/3w5-h22-tp2-backend.git;
       - run: cd 3w5-h22-tp2-frontend/ && npm i;
-      - run: npm run build;
+      - run: npm run build
       - run: cd .. && cd 3w5-h22-tp2-backend/ && mkdir public;
       - run: cd .. && cd 3w5-h22-tp2-frontend/ && cp -rT build cd .. && cd 3w5-h22-tp2-frontend/public
       - persist_to_workspace:
