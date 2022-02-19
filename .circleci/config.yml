@@ -1,0 +1,35 @@
+version: 2.1
+
+jobs:
+  checkoutAndTest:
+    machine: true
+    steps:
+    - checkout
+    - run: npm run test
+  integrateFrontend:
+    machine: true
+    steps:
+      - run: git clone https://github.com/elimowa/3w5-h22-tp2-frontend.git; git clone https://github.com/elimowa/3w5-h22-tp2-backend.git;
+      - run: cd 3w5-h22-tp2-frontend/ && npm i;
+      - run: npm run build;
+      - run: cd .. && cd 3w5-h22-tp2-backend/ && mkdir public;
+      - run: cd .. && cd 3w5-h22-tp2-frontend/ && cp -rT build cd .. && cd 3w5-h22-tp2-frontend/public
+      - persist_to_workspace:
+              root: .
+              paths:
+                - 3w5-h22-tp2-backend-test1
+  deploy:
+    machine: true
+    steps:
+    - run: cd 3w5-h22-tp2-backend/
+    - run: ls -Rl
+    - attach_workspace:
+          at: .
+workflows:
+  build:
+    jobs:
+      - checkoutAndTest
+      - integrateFrontend
+      - deploy
+  
+
