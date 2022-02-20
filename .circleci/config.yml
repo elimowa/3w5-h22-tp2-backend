@@ -10,7 +10,6 @@ jobs:
     - run: npm run test
   integrateFrontend:
     machine: true
-
     steps:
       - run: git clone https://github.com/elimowa/3w5-h22-tp2-frontend.git; git clone https://github.com/elimowa/3w5-h22-tp2-backend.git;
       - run: cd 3w5-h22-tp2-frontend/ && npm i;
