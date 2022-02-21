@@ -3,13 +3,14 @@ orbs:
   node: circleci/node@5.0.0
 
 jobs:
-  checkoutAndTest:
-    machine: true
-    steps:
-    - checkout
-    - run: npm run test
+  # checkoutAndTest:
+  #   machine: true
+  #   steps:
+  #   - checkout
+  #   - run: npm run test
   integrateFrontend:
-    machine: true
+    docker:
+      - image: cimg/node:17.4.0
     steps:
       - run: git clone https://github.com/elimowa/3w5-h22-tp2-frontend.git; git clone https://github.com/elimowa/3w5-h22-tp2-backend.git;
       - run: cd 3w5-h22-tp2-frontend/ && npm i;
@@ -25,18 +26,17 @@ jobs:
     steps:
     - attach_workspace:
         at: .
-    - run: cd 3w5-h22-tp2-backend/
-    - run: ls -Rl
+    - run: cd 3w5-h22-tp2-backend/ && ls -Rl
     
 workflows:
   build:
     jobs:
-      - checkoutAndTest
+      - node/test
       - integrateFrontend:
-          requieres:
-            - checkoutAndTest
+          requires:
+            - node/test
       - deploy:
-          requieres:
+          requires:
             - integrateFrontend
   
 
