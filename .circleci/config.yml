@@ -16,7 +16,7 @@ jobs:
       - run: cd 3w5-h22-tp2-frontend/ && npm i;
       - run: cd 3w5-h22-tp2-frontend/ && npm run build
       - run: cd 3w5-h22-tp2-backend/ && mkdir public;
-      - run: cd 3w5-h22-tp2-frontend/ && cp -rT  build cd 3w5-h22-tp2-backend/public
+      - run: cd 3w5-h22-tp2-frontend/ && cp -rT  build | cd 3w5-h22-tp2-backend/public
       - persist_to_workspace:
           root: .
           paths:
